@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DataImport.Infrastructure.Services\DataImport.Infrastructure.Services.csproj" />
+      <ProjectReference Include="..\DataImport.Storage.DAL\DataImport.Storage.DAL.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.1" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.0.1" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+        <PackageReference Include="OpenPop.NET" Version="2.0.6.1120">
+            <NoWarn>NU1701</NoWarn>
+        </PackageReference>
+      <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.19" />
+    </ItemGroup>
+
+</Project>

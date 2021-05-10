@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Moq" Version="4.14.5" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DataImport.Core.Services\DataImport.Core.Services.csproj" />
+      <ProjectReference Include="..\DataImport.Storage.DAL\DataImport.Storage.DAL.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Прайс.XLSX" />
+      <Content Include="price.xlsx">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="ICars_stan_i (38).zip" />
+      <Content Include="ICars_stan_i (38).zip">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+</Project>

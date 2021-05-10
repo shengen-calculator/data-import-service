@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DataImport.Common\DataImport.Common.csproj" />
+      <ProjectReference Include="..\DataImport.Core.Domain\DataImport.Core.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
