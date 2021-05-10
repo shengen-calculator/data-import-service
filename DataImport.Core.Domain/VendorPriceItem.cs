@@ -40,6 +40,8 @@ namespace DataImport.Core.Domain
         public string BranchSeven { get; set; }
         public string Availability { get; set; }
         public string VendorNumber { get; set; }
+        
+        public int VendorId { get; set; }
         public int WarehouseId { get; set; }
     }
 }

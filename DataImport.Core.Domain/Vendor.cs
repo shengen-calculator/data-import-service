@@ -8,6 +8,8 @@ namespace DataImport.Core.Domain
         public string ProviderId { get; set; }
         public long InternalId { get; set; }
         public int[] FieldOrder { get; set; }
+        public int[] BranchOrder { get; set; }
+        public int CodePage { get; set; }
         public string FileName { get; set; }
         public int HeaderRowCount { get; set; }
         public ImportType Type { get; set; }

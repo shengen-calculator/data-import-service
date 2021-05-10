@@ -59,7 +59,7 @@ namespace DataImport.Core.Services
                     ".xls" => ExcelReaderFactory.CreateReader(stream),
                     ".csv" => ExcelReaderFactory.CreateCsvReader(stream, new ExcelReaderConfiguration
                     {
-                        FallbackEncoding = Encoding.GetEncoding(1251)
+                        FallbackEncoding = Encoding.GetEncoding(vendor.CodePage)
                     }),
                     _ => ExcelReaderFactory.CreateReader(stream)
                 };
@@ -85,18 +85,51 @@ namespace DataImport.Core.Services
                                 if (!string.IsNullOrEmpty(reader.GetString(vendor.FieldOrder[0])) &&
                                     !string.IsNullOrEmpty(reader.GetString(vendor.FieldOrder[1])))
                                 {
-                                    context = AddToContext(context,
-                                        new VendorPriceItem
-                                        {
-                                            Brand = Right(reader.GetString(vendor.FieldOrder[0]), 50),
-                                            Number = Right(reader.GetString(vendor.FieldOrder[1]), 25),
-                                            Description = Right(reader.GetString(vendor.FieldOrder[2]), 80),
-                                            Price = Convert.ToDecimal(reader.GetString(vendor.FieldOrder[3]).Replace(',','.')),
-                                            Availability = Right(reader.GetString(vendor.FieldOrder[4]), 10),
-                                            WarehouseId = (int)vendor.InternalId,
-                                            ProviderId = vendor.ProviderId
-                                        },
-                                        currentRow, BatchSize, true);
+                                    var item = new VendorPriceItem
+                                    {
+                                        Brand = Right(reader.GetString(vendor.FieldOrder[0]), 50),
+                                        Number = Right(reader.GetString(vendor.FieldOrder[1]), 25),
+                                        Description = Right(reader.GetString(vendor.FieldOrder[2]), 80),
+                                        Price = Convert.ToDecimal(reader.GetString(vendor.FieldOrder[3])
+                                            .Replace(',', '.')),
+                                        
+                                        VendorId = (int) vendor.InternalId,
+                                        ProviderId = vendor.ProviderId
+                                    };
+                                    if (vendor.BranchOrder.Length > 0)
+                                    {
+                                        item.BranchOne = Right(reader.GetString(vendor.BranchOrder[0]), 10);
+                                    }
+                                    if (vendor.BranchOrder.Length > 1)
+                                    {
+                                        item.BranchTwo = Right(reader.GetString(vendor.BranchOrder[1]), 10);
+                                    } 
+                                    if (vendor.BranchOrder.Length > 2)
+                                    {
+                                        item.BranchThree = Right(reader.GetString(vendor.BranchOrder[2]), 10);
+                                    } 
+                                    if (vendor.BranchOrder.Length > 3)
+                                    {
+                                        item.BranchFour = Right(reader.GetString(vendor.BranchOrder[3]), 10);
+                                    } 
+                                    if (vendor.BranchOrder.Length > 4)
+                                    {
+                                        item.BranchFive = Right(reader.GetString(vendor.BranchOrder[4]), 10);
+                                    } 
+                                    if (vendor.BranchOrder.Length > 5)
+                                    {
+                                        item.BranchSix = Right(reader.GetString(vendor.BranchOrder[5]), 10);
+                                    } 
+                                    if (vendor.BranchOrder.Length > 6)
+                                    {
+                                        item.BranchSeven = Right(reader.GetString(vendor.BranchOrder[6]), 10);
+                                    } 
+                                    if(vendor.BranchOrder.Length == 0)
+                                    {
+                                        item.Availability = Right(reader.GetString(vendor.FieldOrder[4]), 10);
+                                    }
+                                    
+                                    context = AddToContext(context, item, currentRow, BatchSize, true);
                                 }
 
                             }

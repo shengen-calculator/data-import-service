@@ -33,12 +33,13 @@ namespace DataImport.Test.Unit
             await dataImportService.Import(new Vendor
             {
                 //FieldOrder = new[] {2,1,3,4,5},
-                FieldOrder = new[] {4,2,3,5,7},
+                FieldOrder = new[] {4, 2, 3, 5, 7},
                 InternalId = 25,
                 HeaderRowCount = 1,
                 FileName = "ICars_stan_i (38).zip",
-                ProviderId= "5670706842959872"
-                
+                ProviderId = "5670706842959872",
+                CodePage = 1251,
+                BranchOrder = new[] {11, 12, 13, 14, 15, 16, 17}
             }, File.ReadAllBytes("ICars_stan_i (38).zip"));
 
         }

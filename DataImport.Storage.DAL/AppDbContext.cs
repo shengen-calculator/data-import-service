@@ -66,6 +66,20 @@ namespace DataImport.Storage.DAL
             modelBuilder.Entity<VendorPriceItem>()
                 .Property(p => p.Availability).HasColumnType("nvarchar(10)");
             modelBuilder.Entity<VendorPriceItem>()
+                .Property(p => p.BranchOne).HasColumnType("nvarchar(10)");
+            modelBuilder.Entity<VendorPriceItem>()
+                .Property(p => p.BranchTwo).HasColumnType("nvarchar(10)");
+            modelBuilder.Entity<VendorPriceItem>()
+                .Property(p => p.BranchThree).HasColumnType("nvarchar(10)");
+            modelBuilder.Entity<VendorPriceItem>()
+                .Property(p => p.BranchFour).HasColumnType("nvarchar(10)");
+            modelBuilder.Entity<VendorPriceItem>()
+                .Property(p => p.BranchFive).HasColumnType("nvarchar(10)");
+            modelBuilder.Entity<VendorPriceItem>()
+                .Property(p => p.BranchSix).HasColumnType("nvarchar(10)");
+            modelBuilder.Entity<VendorPriceItem>()
+                .Property(p => p.BranchSeven).HasColumnType("nvarchar(10)");
+            modelBuilder.Entity<VendorPriceItem>()
                 .Property(p => p.VendorNumber).HasColumnType("nvarchar(25)");
             
         }
