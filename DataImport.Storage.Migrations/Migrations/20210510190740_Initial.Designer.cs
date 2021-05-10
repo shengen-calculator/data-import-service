@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataImport.Storage.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210510081809_Initial")]
+    [Migration("20210510190740_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,25 +31,25 @@ namespace DataImport.Storage.Migrations.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchFive")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchFour")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchOne")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchSeven")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchSix")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchThree")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchTwo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(50)");
@@ -122,6 +122,9 @@ namespace DataImport.Storage.Migrations.Migrations
 
                     b.Property<string>("ShortNumber")
                         .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("VendorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("VendorNumber")
                         .HasColumnType("nvarchar(25)");

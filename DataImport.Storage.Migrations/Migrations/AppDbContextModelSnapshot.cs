@@ -29,25 +29,25 @@ namespace DataImport.Storage.Migrations.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchFive")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchFour")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchOne")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchSeven")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchSix")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchThree")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("BranchTwo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(50)");
@@ -120,6 +120,9 @@ namespace DataImport.Storage.Migrations.Migrations
 
                     b.Property<string>("ShortNumber")
                         .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("VendorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("VendorNumber")
                         .HasColumnType("nvarchar(25)");
