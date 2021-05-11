@@ -92,7 +92,7 @@ namespace DataImport.Core.Services
                                         Description = Right(reader.GetString(vendor.FieldOrder[2]), 80),
                                         Price = Convert.ToDecimal(reader.GetString(vendor.FieldOrder[3])
                                             .Replace(',', '.')),
-                                        
+                                        VendorNumber = Right(reader.GetString(vendor.FieldOrder[4]), 25),
                                         VendorId = (int) vendor.InternalId,
                                         ProviderId = vendor.ProviderId
                                     };
