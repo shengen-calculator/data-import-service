@@ -29,7 +29,7 @@ namespace DataImport.Test.Unit
                 });
             
             var vendorService = new VendorService(_mockConfigService.Object, _mockLogService.Object);
-            var vendors = await vendorService.GetVendors("admin@cde.com");
+            var vendors = await vendorService.GetVendors("ybrynko@intercars.eu");
             Assert.NotNull(vendors);
             
         }

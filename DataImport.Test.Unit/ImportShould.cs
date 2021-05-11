@@ -1,4 +1,5 @@
 using System.IO;
+using DataImport.Common.Enums;
 using DataImport.Common.SharedModels;
 using DataImport.Core.Domain;
 using DataImport.Core.Services;
@@ -32,13 +33,14 @@ namespace DataImport.Test.Unit
 
             await dataImportService.Import(new Vendor
             {
-                //FieldOrder = new[] {2,1,3,4,5},
                 FieldOrder = new[] {4, 2, 3, 6, 1},
-                InternalId = 25,
+                InternalId = 5,
                 HeaderRowCount = 1, 
-                FileName = "ICars_stan_i (38).zip",
+                FileName = "ICars_stan_i",
                 ProviderId = "5670706842959872",
                 CodePage = 1251,
+                IsActive = true,
+                Type = ImportType.Email,
                 BranchOrder = new[] {34, 42, 7, 13, 30, 47}
             }, File.ReadAllBytes("ICars_stan_i (38).zip"));
 
