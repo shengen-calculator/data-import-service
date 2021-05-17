@@ -42,10 +42,10 @@ namespace DataImport.Email.Worker
                         var vendors = await _vendorService.GetVendors(info.Sender);
                         var vendor = vendors.SingleOrDefault(x => 
                             info.FileName.StartsWith(x.FileName) && 
-                            info.Vendor.IsActive && 
-                            info.Vendor.Type == ImportType.Email);
+                            x.IsActive && 
+                            x.Type == ImportType.Email);
                         if (vendor == null) continue;
-                        await _dataImportService.Import(vendor, info.Bytes);
+                        await _dataImportService.Import(vendor, info.Bytes, info.FileName);
                         await _dataImportService.StartHandler(vendor);
                     }
 
@@ -53,7 +53,7 @@ namespace DataImport.Email.Worker
                 
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 
-                await Task.Delay(5 * 60 * 1000, stoppingToken);
+                await Task.Delay(1 * 60 * 1000, stoppingToken);
             }
         }
     }

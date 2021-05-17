@@ -20,7 +20,7 @@ namespace DataImport.Core.Services
     {
         private readonly IAppConfigService _appConfigService;
         private readonly ILogService _logService;
-        private const int BatchSize = 10000;
+        private const int BatchSize = 100000;
 
         public DataImportService(IAppConfigService appConfigService, ILogService logService)
         {
@@ -28,9 +28,9 @@ namespace DataImport.Core.Services
             _logService = logService;
         }
 
-        public Task Import(Vendor vendor, byte[] bytes)
+        public Task Import(Vendor vendor, byte[] bytes, string fileName)
         {
-            var ext = Path.GetExtension(vendor.FileName);
+            var ext = Path.GetExtension(fileName);
 
             //decompression
             if (ext == ".zip")
@@ -90,8 +90,8 @@ namespace DataImport.Core.Services
                                         Brand = Right(reader.GetString(vendor.FieldOrder[0]), 50),
                                         Number = Right(reader.GetString(vendor.FieldOrder[1]), 25),
                                         Description = Right(reader.GetString(vendor.FieldOrder[2]), 80),
-                                        Price = Convert.ToDecimal(reader.GetString(vendor.FieldOrder[3])
-                                            .Replace(',', '.')),
+                                        Price = decimal.Round(Convert.ToDecimal(reader.GetString(vendor.FieldOrder[3])
+                                            .Replace(',', '.')), 2),
                                         VendorNumber = Right(reader.GetString(vendor.FieldOrder[4]), 25),
                                         VendorId = (int) vendor.InternalId,
                                         ProviderId = vendor.ProviderId
@@ -140,10 +140,10 @@ namespace DataImport.Core.Services
 
 
                     context.SaveChanges();
+                    _logService.Log(Level.Info,$"File imported successfully", vendor.Name);
                 }
                 catch(Exception ex)
                 {
-                    _logService.Log(Level.Error,$"Import file error: {ex.Message}", vendor.Name);
                     _logService.Log(Level.Error,$"Import file error: {ex.Message}", vendor.Name);
                 }
                 finally

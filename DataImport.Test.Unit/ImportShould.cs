@@ -42,7 +42,7 @@ namespace DataImport.Test.Unit
                 IsActive = true,
                 Type = ImportType.Email,
                 BranchOrder = new[] {34, 42, 7, 13, 30, 47}
-            }, File.ReadAllBytes("ICars_stan_i (38).zip"));
+            }, File.ReadAllBytes("ICars_stan_i (38).zip"), "ICars_stan_i (38).zip");
 
         }
         
