@@ -20,12 +20,10 @@ namespace DataImport.Core.Services
 
             EndpointSettings = root.GetSection("Endpoints").Get<EndpointSettings>();
             EmailSettings = root.GetSection("Email").Get<EmailSettings>();
-            ConnectionStringSettings = root.GetSection("ConnectionStrings").Get<ConnectionStringSettings>();
             
         }
 
         #endregion
-        public ConnectionStringSettings ConnectionStringSettings { get; }
         public EndpointSettings EndpointSettings { get; }
         public EmailSettings EmailSettings { get; }
     }

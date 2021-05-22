@@ -19,7 +19,7 @@ namespace DataImport.Test.Unit
         }
        
         [Fact]
-        public async void GetVendor()
+        public async void GetVendors()
         {
             _mockConfigService.Setup(x => x.EndpointSettings)
                 .Returns(() =>
@@ -29,8 +29,9 @@ namespace DataImport.Test.Unit
                 });
             
             var vendorService = new VendorService(_mockConfigService.Object, _mockLogService.Object);
-            var vendors = await vendorService.GetVendors("ybrynko@intercars.eu");
-            Assert.NotNull(vendors);
+            await vendorService.InitCollection();
+            var vendor = vendorService.GetVendor("ybrynko@intercars.eu", "ICars_stan_i (38).zip");
+            Assert.NotNull(vendor);
             
         }
         
