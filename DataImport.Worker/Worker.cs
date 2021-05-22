@@ -14,13 +14,15 @@ namespace DataImport.Worker
         private readonly ILogService _logService;
         private readonly IVendorService _vendorService;
         private readonly IEmailService _emailService;
+        private readonly IHandlerService _handlerService;
 
-        public Worker(ILogger<Worker> logger, ILogService logService, IEmailService emailService, IVendorService vendorService)
+        public Worker(ILogger<Worker> logger, ILogService logService, IEmailService emailService, IVendorService vendorService, IHandlerService handlerService)
         {
             _logger = logger;
             _logService = logService;
             _emailService = emailService;
             _vendorService = vendorService;
+            _handlerService = handlerService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -31,8 +33,11 @@ namespace DataImport.Worker
             while (!stoppingToken.IsCancellationRequested)
             {
                 var lastRun = DateTimeOffset.Now;
-                var emailTask = new Task( () => _emailService.Run());
+                var emailTask = new Task(() => _emailService.Run());
                 emailTask.Start();
+                
+                var handlerTask = new Task(() => _handlerService.Run());
+                handlerTask.Start();
                 
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 var timeDiff = DateTimeOffset.Now.Subtract(lastRun);

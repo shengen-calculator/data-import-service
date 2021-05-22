@@ -55,7 +55,10 @@ namespace DataImport.Core.Services
         public Vendor GetVendor(string email, string fileName)
         {
             return _vendors.SingleOrDefault(x => x.Email == email && x.IsActive && fileName.StartsWith(x.FileName));
-
+        }
+        public Vendor GetVendorById(string providerId)
+        {
+            return _vendors.SingleOrDefault(x => x.ProviderId == providerId && x.IsActive);
         }
         
     }

@@ -7,5 +7,6 @@ namespace DataImport.Infrastructure.Services
     {
         Task InitCollection();
         Vendor GetVendor(string email, string fileName);
+        Vendor GetVendorById(string id);
     }
 }
