@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace DataImport.Infrastructure.Services
 {
-    public interface IHandlerService
+    public interface IImportService
     {
         Task Run();
     }

@@ -3,16 +3,18 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using DataImport.Common.Attribute;
 using DataImport.Infrastructure.Services;
 
 namespace DataImport.Core.Services
 {
-    public class HandlerService : IHandlerService
+    [ExposeForDI]
+    public class ImportService : IImportService
     {
         private readonly IAppConfigService _appConfigService;
         private readonly IVendorService _vendorService;
 
-        public HandlerService(IAppConfigService appConfigService, IVendorService vendorService)
+        public ImportService(IAppConfigService appConfigService, IVendorService vendorService)
         {
             _appConfigService = appConfigService;
             _vendorService = vendorService;
@@ -25,10 +27,14 @@ namespace DataImport.Core.Services
 
             foreach (var file in files)
             {
-                File.Move($"{_appConfigService.LocalFolderSettings.In}{file.FullName}", 
-                    $"{_appConfigService.LocalFolderSettings.Temp}{file.FullName}");
+                var ext = Path.GetExtension(file.Name);
 
-                var vendor = _vendorService.GetVendorById(file.Name);
+                if (ext != ".csv" && ext != ".xls" && ext != ".xlsx") continue;
+                var fileName = Path.GetFileNameWithoutExtension(file.Name);
+                File.Move($"{file.FullName}", 
+                    $"{_appConfigService.LocalFolderSettings.Temp}{file.Name}");
+
+                var vendor = _vendorService.GetVendorById(fileName);
                 
                 //send request for handling
                 
@@ -50,16 +56,14 @@ namespace DataImport.Core.Services
                 var webResponse = (HttpWebResponse)response;
                 if (webResponse.StatusCode == HttpStatusCode.OK)
                 {
-                    File.Delete($"{_appConfigService.LocalFolderSettings.Temp}{file.FullName}");
+                    File.Delete($"{_appConfigService.LocalFolderSettings.Temp}{file.Name}");
                 }
                 else
                 {
-                    File.Move($"{_appConfigService.LocalFolderSettings.Temp}{file.FullName}", 
-                        $"{_appConfigService.LocalFolderSettings.Error}{file.FullName}");
+                    File.Move($"{_appConfigService.LocalFolderSettings.Temp}{file.Name}", 
+                        $"{_appConfigService.LocalFolderSettings.Error}{file.Name}");
                 }
-
             }
-            
         }
     }
 }

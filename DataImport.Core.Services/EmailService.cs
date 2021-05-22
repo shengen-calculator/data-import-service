@@ -40,7 +40,7 @@ namespace DataImport.Core.Services
                 }
                 
                 // save to fs
-                File.WriteAllBytes($"{_appConfigService.LocalFolderSettings.In}{vendor.ProviderId}.{ext}", info.Bytes); 
+                File.WriteAllBytes($"{_appConfigService.LocalFolderSettings.In}{vendor.ProviderId}{ext}", info.Bytes); 
 
             }
 
