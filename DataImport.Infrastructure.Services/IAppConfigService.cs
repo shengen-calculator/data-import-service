@@ -6,5 +6,6 @@ namespace DataImport.Infrastructure.Services
     {
         EndpointSettings EndpointSettings { get; }
         EmailSettings EmailSettings { get; }
+        LocalFolderSettings LocalFolderSettings { get; }
     }
 }

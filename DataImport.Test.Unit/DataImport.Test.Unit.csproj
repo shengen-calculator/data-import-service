@@ -13,7 +13,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DataImport.Core.Services\DataImport.Core.Services.csproj" />
-      <ProjectReference Include="..\DataImport.Storage.DAL\DataImport.Storage.DAL.csproj" />
     </ItemGroup>
 
     <ItemGroup>

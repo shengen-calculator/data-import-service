@@ -30,6 +30,9 @@ namespace DataImport.Worker
             
             while (!stoppingToken.IsCancellationRequested)
             {
+                var emailTask = new Task( () => _emailService.Run());
+                emailTask.Start();
+                
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1 * 60 * 1000, stoppingToken);
             }

@@ -14,6 +14,5 @@
       <ProjectReference Include="..\DataImport.Common\DataImport.Common.csproj" />
       <ProjectReference Include="..\DataImport.Core.Services\DataImport.Core.Services.csproj" />
       <ProjectReference Include="..\DataImport.Infrastructure.Services\DataImport.Infrastructure.Services.csproj" />
-      <ProjectReference Include="..\DataImport.Storage.DAL\DataImport.Storage.DAL.csproj" />
     </ItemGroup>
 </Project>
