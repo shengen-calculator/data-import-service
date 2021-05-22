@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,41 +18,45 @@ namespace DataImport.Core.Services
     {
         private readonly IAppConfigService _appConfigService;
         private readonly ILogService _logService;
+        private static IEnumerable<Vendor> _vendors; 
 
         public VendorService(IAppConfigService appConfigService, ILogService logService)
         {
             _appConfigService = appConfigService;
             _logService = logService;
-        }
 
-        public async Task<IEnumerable<Vendor>> GetVendors(string email)
+        }
+        
+        public async Task InitCollection()
         {
             
             var endpointSettings = _appConfigService.EndpointSettings;
 
             try
             {
-                var url = $"{endpointSettings.GetVendor}?email={email}";
+                var url = $"{endpointSettings.GetVendor}";
                 var request = (HttpWebRequest) WebRequest.Create(url);
                 request.Headers["Authorization"] = endpointSettings.Key;
                 var response = (HttpWebResponse) request.GetResponse();
-                if (response.StatusCode != HttpStatusCode.OK) return null;
+                if (response.StatusCode != HttpStatusCode.OK) throw new Exception("Reply status is not OK");
                 await using var responseStream = response.GetResponseStream();
                 var serializer = new JsonSerializer();
                 using var streamReader = new StreamReader(responseStream ?? throw new Exception("Empty reply from endpoint"), Encoding.UTF8);
                 using var jsonReader = new JsonTextReader(streamReader);
-                return serializer.Deserialize<IEnumerable<Vendor>>(jsonReader);
+                _vendors = serializer.Deserialize<IEnumerable<Vendor>>(jsonReader);
             }
             catch (Exception e)
             {
-                await _logService.Log(Level.Error, $"Try to get vendors by '{email}'. {e.Message}", string.Empty);
-                return null;
+                await _logService.Log(Level.Error, $"Try to get vendors. {e.Message}", string.Empty);
             }
         }
+        
 
-        public Task<Vendor> GetVendor(int vendorId)
+        public Vendor GetVendor(string email, string fileName)
         {
-            throw new System.NotImplementedException();
+            return _vendors.SingleOrDefault(x => x.Email == email && x.IsActive && x.FileName.StartsWith(fileName));
+
         }
+        
     }
 }

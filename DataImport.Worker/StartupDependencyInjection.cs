@@ -2,7 +2,7 @@ using DataImport.Common.Attribute;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DataImport.Url.Worker
+namespace DataImport.Worker
 {
     public static class StartupDependencyInjection
     {
@@ -11,8 +11,9 @@ namespace DataImport.Url.Worker
             services.AddSingleton(configuration);
 
             services.Scan(scan => scan.FromExecutingAssembly()
-                .FromApplicationDependencies(a => a.FullName.Contains("DataImport.Infrastructure.Services")
-                                                  || a.FullName.Contains("DataImport.Core.Services"))
+                .FromApplicationDependencies(a => a.FullName.Contains("DataImport.Storage.Repositories")
+                                                  || a.FullName.Contains("DataImport.Infrastructure")
+                                                  || a.FullName.Contains("DataImport.Core"))
                 .AddClasses(filter => filter.WithAttribute<ExposeForDIAttribute>())
                 .AsImplementedInterfaces()
                 .WithScopedLifetime()
