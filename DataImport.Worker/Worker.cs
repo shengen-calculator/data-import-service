@@ -27,14 +27,21 @@ namespace DataImport.Worker
         {
             await _logService.Log(Level.Info, "DataImport service started!", string.Empty);
             await _vendorService.InitCollection();
-            
+
             while (!stoppingToken.IsCancellationRequested)
             {
+                var lastRun = DateTimeOffset.Now;
                 var emailTask = new Task( () => _emailService.Run());
                 emailTask.Start();
                 
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1 * 60 * 1000, stoppingToken);
+                var timeDiff = DateTimeOffset.Now.Subtract(lastRun);
+                var restSec = 60 - timeDiff.TotalSeconds;
+                if (restSec > 0)
+                {
+                    await Task.Delay((int)restSec * 1000, stoppingToken);
+                } 
+                
             }
         }
     }
