@@ -20,11 +20,13 @@ namespace DataImport.Core.Services
 
             EndpointSettings = root.GetSection("Endpoints").Get<EndpointSettings>();
             EmailSettings = root.GetSection("Email").Get<EmailSettings>();
+            LocalFolderSettings = root.GetSection("LocalFolder").Get<LocalFolderSettings>();
             
         }
 
         #endregion
         public EndpointSettings EndpointSettings { get; }
         public EmailSettings EmailSettings { get; }
+        public LocalFolderSettings LocalFolderSettings { get; }
     }
 }
