@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 using DataImport.Common.Attribute;
 using DataImport.Common.SharedModels;
@@ -14,6 +15,18 @@ namespace DataImport.Core.Services
         public AppConfigService()
         {
             var configurationBuilder = new ConfigurationBuilder();
+            var isService = !(Debugger.IsAttached);
+            if (isService)
+            {
+                var processModule = Process.GetCurrentProcess().MainModule;
+                if (processModule != null)
+                {
+                    var pathToExe = processModule.FileName;
+                    var pathToContentRoot = Path.GetDirectoryName(pathToExe);
+                    Directory.SetCurrentDirectory(pathToContentRoot);
+                }
+            }
+            
             var path = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
             configurationBuilder.AddJsonFile(path, false);
             var root = configurationBuilder.Build();
