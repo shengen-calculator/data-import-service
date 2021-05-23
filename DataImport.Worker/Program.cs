@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -17,6 +13,7 @@ namespace DataImport.Worker
         private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new DefaultServiceProviderFactory())
+                .UseWindowsService()
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.ConfigureDependencyInjection(hostContext.Configuration);
