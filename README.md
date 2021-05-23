@@ -21,3 +21,9 @@ sc delete DemoService
 cd DataImport.Worker
 dotnet publish -r win-x64 -c Release --self-contained
 ```
+**Allow access to gmail**
+```
+1 - enable the pop at Configurations / Forwarding and POP/IMAP
+2 - follow this link: https://www.google.com/settings/security/lesssecureapps 
+    and activate for less secure apps.
+```
