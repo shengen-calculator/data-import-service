@@ -54,11 +54,7 @@ namespace DataImport.Core.Services
                 stream.Write(data, 0, data.Length);
                 var response = await request.GetResponseAsync();
                 var webResponse = (HttpWebResponse)response;
-                if (webResponse.StatusCode == HttpStatusCode.OK)
-                {
-                    File.Delete($"{_appConfigService.LocalFolderSettings.Temp}{file.Name}");
-                }
-                else
+                if (webResponse.StatusCode != HttpStatusCode.OK)
                 {
                     File.Move($"{_appConfigService.LocalFolderSettings.Temp}{file.Name}", 
                         $"{_appConfigService.LocalFolderSettings.Error}{file.Name}");
