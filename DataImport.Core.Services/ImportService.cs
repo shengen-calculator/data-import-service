@@ -32,7 +32,7 @@ namespace DataImport.Core.Services
                 if (ext != ".csv" && ext != ".xls" && ext != ".xlsx") continue;
                 var fileName = Path.GetFileNameWithoutExtension(file.Name);
                 File.Move($"{file.FullName}", 
-                    $"{_appConfigService.LocalFolderSettings.Temp}{file.Name}");
+                    $"{_appConfigService.LocalFolderSettings.Temp}{file.Name}", true);
 
                 var vendor = _vendorService.GetVendorById(fileName);
                 
